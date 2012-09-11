@@ -2,8 +2,10 @@ package com.modocache.android.foosballtimer;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.widget.Toast;
 import android.app.DialogFragment;
 
@@ -71,7 +73,11 @@ public class GameProgressFragment extends DialogFragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity().getBaseContext(),
+                Context context = getActivity().getBaseContext();
+                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+
+                vibrator.vibrate(800);
+                Toast.makeText(context,
                                getString(R.string.end_game_toast_text),
                                Toast.LENGTH_SHORT).show();
             }
