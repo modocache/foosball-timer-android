@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="pref_gametime_list_entries">
+		<item>2 Minutes</item>
+		<item>3 Minutes</item>
+		<item>4 Minutes</item>
+		<item>5 Minutes</item>
+		<item>10 Minutes</item>
+		<item>15 Minutes</item>
+	</string-array>
+
+	<string-array name="pref_gametime_list_entry_values">
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>10</item>
+		<item>15</item>
+	</string-array>
+</resources>

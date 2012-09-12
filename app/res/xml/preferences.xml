@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="@string/pref_gametime_category_name">
+        <ListPreference
+            android:title="@string/pref_gametime_list_title"
+            android:summary="@string/pref_gametime_list_summary"
+            android:key="gameTime"
+            android:entries="@array/pref_gametime_list_entries"
+            android:entryValues="@array/pref_gametime_list_entry_values" 
+            android:defaultValue="@string/pref_gametime_list_default_value" />
+    </PreferenceCategory>
+</PreferenceScreen>

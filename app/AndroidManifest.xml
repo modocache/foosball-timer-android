@@ -20,6 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TimerPreferenceActivity"
+            android:label="@string/pref_activity_title" >
+            <intent-filter>
+                <action android:name="com.modocache.android.foosballtimer.TimerPreferenceActivity" />
+                <category android:name="android.intent.category.PREFERENCE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

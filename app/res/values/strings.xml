@@ -10,4 +10,11 @@
     <string name="game_progress_dialog_message">Feel the foos flowing through you.</string>
     <string name="game_progress_dialog_cancel_button_text">Quit Game</string>
 
+    <string name="pref_activity_title">Preferences</string>
+    <string name="pref_menu_item_title">Preferences</string>
+    <string name="pref_gametime_category_name">Game Duration</string>
+    <string name="pref_gametime_list_title">Game Duration Options</string>
+    <string name="pref_gametime_list_summary">Select the duration of your timeboxed foosball game.</string>
+    <string name="pref_gametime_list_default_value">4</string>
+
 </resources>
