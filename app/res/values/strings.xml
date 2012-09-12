@@ -17,4 +17,10 @@
     <string name="pref_gametime_list_summary">Select the duration of your timeboxed foosball game.</string>
     <string name="pref_gametime_list_default_value">4</string>
 
+    <string name="pref_gameend_action_category_name">Game End Actions</string>
+    <string name="pref_gameend_action_vibrate_title">Vibrate on Game End</string>
+    <string name="pref_gameend_action_vibrate_summmary">Select whether the device should vibrate to signal the end of the game.</string>
+    <string name="pref_gameend_action_sound_title">Play Sound on Game End</string>
+    <string name="pref_gameend_action_sound_summmary">Select whether the device should play a sound to signal the end of the game.</string>
+
 </resources>

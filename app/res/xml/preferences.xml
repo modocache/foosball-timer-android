@@ -9,4 +9,17 @@
             android:entryValues="@array/pref_gametime_list_entry_values" 
             android:defaultValue="@string/pref_gametime_list_default_value" />
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_gameend_action_category_name">
+        <CheckBoxPreference
+            android:title="@string/pref_gameend_action_vibrate_title"
+            android:summary="@string/pref_gameend_action_vibrate_summmary"
+            android:defaultValue="true"
+            android:key="isVibrateOn" />
+        <CheckBoxPreference
+            android:title="@string/pref_gameend_action_sound_title"
+            android:summary="@string/pref_gameend_action_sound_summmary"
+            android:defaultValue="true"
+            android:key="isSoundOn" />
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -4,8 +4,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 import android.app.DialogFragment;
 
@@ -74,9 +79,19 @@ public class GameProgressFragment extends DialogFragment {
             @Override
             public void run() {
                 Context context = getActivity().getBaseContext();
-                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-                vibrator.vibrate(800);
+                if (preferences.getBoolean("isVibrateOn", true)) {
+                    Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(800);
+                }
+
+                if (preferences.getBoolean("isSoundOn", true)) {
+                    Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, ringtoneUri);
+                    ringtone.play();
+                }
+
                 Toast.makeText(context,
                                getString(R.string.end_game_toast_text),
                                Toast.LENGTH_SHORT).show();
