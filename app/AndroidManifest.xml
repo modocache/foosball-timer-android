@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.PREFERENCE" />
             </intent-filter>
         </activity>
+        <service android:name=".FoosballTimerService"></service>
     </application>
 
 </manifest>
