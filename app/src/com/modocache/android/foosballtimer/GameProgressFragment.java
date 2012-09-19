@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 
 public class GameProgressFragment extends DialogFragment {
 

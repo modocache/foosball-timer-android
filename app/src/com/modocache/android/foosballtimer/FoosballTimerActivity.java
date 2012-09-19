@@ -2,16 +2,18 @@ package com.modocache.android.foosballtimer;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuCompat;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-public class FoosballTimerActivity extends Activity {
+public class FoosballTimerActivity extends FragmentActivity {
 
     static private final int preferencesMenuItemId = 1;
 
@@ -22,13 +24,15 @@ public class FoosballTimerActivity extends Activity {
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem preferencesMenuItem = menu.add(0,
                                                 preferencesMenuItemId,
                                                 0,
                                                 R.string.pref_menu_item_title);
-        preferencesMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        MenuCompat.setShowAsAction(preferencesMenuItem,
+                                   MenuItem.SHOW_AS_ACTION_IF_ROOM);
         return true;
     }
 
@@ -46,8 +50,9 @@ public class FoosballTimerActivity extends Activity {
                        getString(R.string.start_game_toast_text),
                        Toast.LENGTH_SHORT).show();
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment prev = fragmentManager.findFragmentByTag("dialog");
         if (prev != null) {
             fragmentTransaction.remove(prev);
         }
