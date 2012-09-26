@@ -32,12 +32,18 @@ public class FoosballTimerActivity extends FragmentActivity {
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         IntentFilter secondsUpdatedIntentFilter = new IntentFilter();
-        secondsUpdatedIntentFilter.addAction(FoosballTimerService.SECONDS_UPDATED_ACTION);
+        secondsUpdatedIntentFilter.addAction(GameProgressUpdateThread.SECONDS_UPDATED_ACTION);
         registerReceiver(secondsUpdatedIntentReceiver, secondsUpdatedIntentFilter);
 
         IntentFilter gameEndedIntentFilter = new IntentFilter();
-        gameEndedIntentFilter.addAction(FoosballTimerService.GAME_ENDED_ACTION);
+        gameEndedIntentFilter.addAction(GameProgressUpdateThread.GAME_ENDED_ACTION);
         registerReceiver(gameEndedIntentReceiver, gameEndedIntentFilter);
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	updateButtonText(GameProgressUpdateThread.isGameInProgress());
     }
 
     @Override
@@ -69,12 +75,12 @@ public class FoosballTimerActivity extends FragmentActivity {
     }
 
     public void onStartGameButtonClick(View button) {
-        String buttonText = toggleGameButton.getText().toString();
-        String startText = getString(R.string.start_game_button_text);
-        String stopText = getString(R.string.stop_game_button_text);
-
-        if (buttonText.equals(startText)) {
-            toggleGameButton.setText(stopText);
+        if (GameProgressUpdateThread.isGameInProgress()) {
+        	updateButtonText(false);
+            GameProgressUpdateThread.stopSharedThread();
+            timerServiceIntent = null;
+        } else {
+        	updateButtonText(true);
             timerServiceIntent = new Intent(this, FoosballTimerService.class);
             String gameTimeString = PreferenceManager
                                         .getDefaultSharedPreferences(getBaseContext())
@@ -82,17 +88,20 @@ public class FoosballTimerActivity extends FragmentActivity {
             int gameTime = Integer.parseInt(gameTimeString) * 60;
             timerServiceIntent.putExtra(GAME_TIME_KEY, gameTime);
             startService(timerServiceIntent);
-        } else {
-            toggleGameButton.setText(startText);
-            stopService(new Intent(this, FoosballTimerService.class));
-            timerServiceIntent = null;
         }
+    }
+    
+    private void updateButtonText(Boolean isGameInProgress) {
+    	String text = isGameInProgress ?
+    			getString(R.string.stop_game_button_text) :
+    			getString(R.string.start_game_button_text);
+    	toggleGameButton.setText(text);
     }
 
     private BroadcastReceiver secondsUpdatedIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int currentSeconds = intent.getIntExtra(FoosballTimerService.SECONDS_KEY, 0);
+            int currentSeconds = intent.getIntExtra(GameProgressUpdateThread.SECONDS_KEY, 0);
             secondsTextView.setText(Integer.toString(currentSeconds));
         }
     };
@@ -101,7 +110,7 @@ public class FoosballTimerActivity extends FragmentActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             secondsTextView.setText(Integer.toString(0));
-            toggleGameButton.setText(getString(R.string.start_game_button_text));
+            updateButtonText(false);
         }
     };
 }
