@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="app_name">フーズボール・タイマー</string>
+    <string name="menu_settings">設定</string>
+    <string name="title_activity_main">Foos Timer</string>
+    <string name="start_game_button_text">ゲーム開始</string>
+    <string name="stop_game_button_text">ゲーム終了</string>
+    <string name="start_game_toast_text">ゲームが開始しました</string>
+    <string name="end_game_toast_text">ゲームが終了しました</string>
+    <string name="seconds_description_textview_text">ゲーム終了までの秒数</string>
+
+    <string name="pref_activity_title">設定</string>
+    <string name="pref_menu_item_title">設定</string>
+    <string name="pref_gametime_category_name">ゲーム時間</string>
+    <string name="pref_gametime_list_title">ゲームの時間設定</string>
+    <string name="pref_gametime_list_summary">フーズボールのゲームに使いたい時間を設定できます</string>
+    <string name="pref_gametime_list_default_value">4</string>
+
+    <string name="pref_gameend_action_category_name">ゲーム終了時</string>
+    <string name="pref_gameend_action_vibrate_title">ゲーム終了時にバイブレート</string>
+    <string name="pref_gameend_action_vibrate_summmary">ゲーム終了を知らせるためにバイブレートするかどうかを選べます</string>
+    <string name="pref_gameend_action_sound_title">ゲーム終了時にリングトーンを鳴らす</string>
+    <string name="pref_gameend_action_sound_summmary">ゲーム終了を知らせるためにリングトーンを鳴らすかどうかを設定できます</string>
+
+</resources>

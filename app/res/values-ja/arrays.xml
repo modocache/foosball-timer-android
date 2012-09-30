@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="pref_gametime_list_entries">
+		<item>2分</item>
+		<item>3分</item>
+		<item>4分</item>
+		<item>5分</item>
+		<item>10分</item>
+		<item>15分</item>
+	</string-array>
+
+	<string-array name="pref_gametime_list_entry_values">
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>10</item>
+		<item>15</item>
+	</string-array>
+</resources>
