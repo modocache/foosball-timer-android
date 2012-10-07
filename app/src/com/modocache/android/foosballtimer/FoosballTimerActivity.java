@@ -15,13 +15,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class FoosballTimerActivity extends FragmentActivity {
-
     static public final String GAME_TIME_KEY = "GAME_TIME_KEY";
     static private final int preferencesMenuItemId = 1;
+
+    static private final String STATE_CURRENT_SECONDS_KEY = "STATE_CURRENT_SECONDS_KEY";
+    static private final String STATE_IN_PROGRESS_KEY = "STATE_IN_PROGRESS_KEY";
+    private int currentSeconds;
+    private boolean isGameInProgress;
+
     private Intent timerServiceIntent;
     private TextView secondsTextView;
     private Button toggleGameButton;
 
+
+    // android.app.Activity Overrides
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +49,24 @@ public class FoosballTimerActivity extends FragmentActivity {
     
     @Override
     protected void onResume() {
-    	super.onResume();
-    	updateButtonText(GameProgressUpdateThread.isGameInProgress());
+        super.onResume();
+        updateButtonText(GameProgressUpdateThread.isGameInProgress());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.currentSeconds = savedInstanceState.getInt(STATE_CURRENT_SECONDS_KEY);
+        this.isGameInProgress = savedInstanceState.getBoolean(STATE_IN_PROGRESS_KEY);
+        updateButtonText(this.isGameInProgress);
+        this.secondsTextView.setText(Integer.toString(this.currentSeconds));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(STATE_CURRENT_SECONDS_KEY, this.currentSeconds);
+        outState.putBoolean(STATE_IN_PROGRESS_KEY, this.isGameInProgress);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -74,13 +97,16 @@ public class FoosballTimerActivity extends FragmentActivity {
         return false;
     }
 
+
+    // Public Interface
     public void onStartGameButtonClick(View button) {
-        if (GameProgressUpdateThread.isGameInProgress()) {
-        	updateButtonText(false);
+        isGameInProgress = GameProgressUpdateThread.isGameInProgress();
+        if (isGameInProgress) {
+            updateButtonText(false);
             GameProgressUpdateThread.stopSharedThread();
             timerServiceIntent = null;
         } else {
-        	updateButtonText(true);
+            updateButtonText(true);
             timerServiceIntent = new Intent(this, FoosballTimerService.class);
             String gameTimeString = PreferenceManager
                                         .getDefaultSharedPreferences(getBaseContext())
@@ -91,17 +117,19 @@ public class FoosballTimerActivity extends FragmentActivity {
         }
     }
     
+
+    // Private Interface
     private void updateButtonText(Boolean isGameInProgress) {
-    	String text = isGameInProgress ?
-    			getString(R.string.stop_game_button_text) :
-    			getString(R.string.start_game_button_text);
-    	toggleGameButton.setText(text);
+        String text = isGameInProgress ?
+                getString(R.string.stop_game_button_text) :
+                getString(R.string.start_game_button_text);
+        toggleGameButton.setText(text);
     }
 
     private BroadcastReceiver secondsUpdatedIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int currentSeconds = intent.getIntExtra(GameProgressUpdateThread.SECONDS_KEY, 0);
+            currentSeconds = intent.getIntExtra(GameProgressUpdateThread.SECONDS_KEY, 0);
             secondsTextView.setText(Integer.toString(currentSeconds));
         }
     };
@@ -109,6 +137,7 @@ public class FoosballTimerActivity extends FragmentActivity {
     private BroadcastReceiver gameEndedIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            currentSeconds = 0;
             secondsTextView.setText(Integer.toString(0));
             updateButtonText(false);
         }
