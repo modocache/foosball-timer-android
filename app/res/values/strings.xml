@@ -22,4 +22,6 @@
     <string name="pref_gameend_action_sound_title">Play Sound on Game End</string>
     <string name="pref_gameend_action_sound_summmary">Select whether the device should play a sound to signal the end of the game.</string>
 
+    <string name="nfc_push_complete_message">Game data sent.</string>
+    <string name="nfc_game_cannot_sync">Game already in progress, cannot sync with another device.</string>
 </resources>

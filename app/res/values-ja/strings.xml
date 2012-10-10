@@ -22,4 +22,6 @@
     <string name="pref_gameend_action_sound_title">ゲーム終了時にリングトーンを鳴らす</string>
     <string name="pref_gameend_action_sound_summmary">ゲーム終了を知らせるためにリングトーンを鳴らすかどうかを設定できます</string>
 
+    <string name="nfc_push_complete_message">ゲームに関するデータを送信しました。</string>
+    <string name="nfc_game_cannot_sync">ゲームが既に開始されているので、他のゲームと同期できません。</string>
 </resources>

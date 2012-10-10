@@ -7,6 +7,9 @@
         android:minSdkVersion="7"
         android:targetSdkVersion="15" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc"
+                  android:required="false" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -14,10 +17,16 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".FoosballTimerActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/com.modocache.android.foosballtimer.nfc" />
             </intent-filter>
         </activity>
         <activity
